@@ -32,6 +32,6 @@ node {
         sh "ssh ec2-user@${IP}     sudo mv /flaskex/flaskex.service    /etc/systemd/system"
     }
     stage("Start service"){
-        sh "ssh ec2-user@${IP}    sudo systemctl start flaskex"
+        sh "ssh ec2-user@${IP}    sudo systemctl stop flaskex"
     }
 }
