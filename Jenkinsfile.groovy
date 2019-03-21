@@ -7,13 +7,23 @@ node {
         git "git@github.com:tilenbaeva/Flaskex.git"
     }
     stage("Run App"){
+        try{
         sh "ssh ec2-user@${IP}  sudo mkdir /flaskex  2> /dev/null"
+        }
+        catch(exc){
+            sh "echo folder exists"
+        }
     }
     stage("Copy files"){
         sh "scp -r * ec2-user@${IP}:/home/ec2-user"
     }
     stage("Move files to /flask"){
+        try{
         sh "ssh ec2-user@${IP}   sudo mv /home/ec2-user/*   /flaskex/"
+        }
+        catch(exc){
+            sh "echo files/folder exists"
+        }
     }
     stage("Install requirements"){
         sh "ssh ec2-user@${IP}     sudo  pip install -r /flaskex/requirements.txt"
