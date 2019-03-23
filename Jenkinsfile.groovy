@@ -13,7 +13,7 @@ node {
         catch(exc){
             sh "echo folder exists"
         }
-    }
+    }  
     stage("Copy files"){
         sh "scp -r * ec2-user@${IP}:/home/ec2-user"
     }
@@ -32,6 +32,6 @@ node {
         sh "ssh ec2-user@${IP}     sudo mv /flaskex/flaskex.service    /etc/systemd/system"
     }
     stage("Start service"){
-        sh "ssh ec2-user@${IP}    sudo systemctl stop flaskex"
+        sh "ssh ec2-user@${IP}    sudo systemctl start flaskex"
     }
 }
